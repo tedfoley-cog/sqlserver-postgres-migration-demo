@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vehicle Operations — Dashboard</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f1f5f9; color: #1e293b;
+        }
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            color: #fff; padding: 1.5rem 2rem;
+        }
+        header h1 { font-size: 1.5rem; font-weight: 700; }
+        header p { color: #94a3b8; font-size: .85rem; margin-top: .25rem; }
+        .warning-banner {
+            background: #fef3c7; border-bottom: 2px solid #f59e0b;
+            padding: .75rem 2rem; font-size: .85rem; color: #92400e;
+        }
+        .warning-banner strong { color: #78350f; }
+        main { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .card {
+            background: #fff; border-radius: 10px; padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,.08);
+        }
+        .card-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: #64748b; }
+        .card-value { font-size: 2rem; font-weight: 700; margin-top: .25rem; }
+        .card-sub { font-size: .8rem; color: #94a3b8; margin-top: .25rem; }
+        .blue { color: #2563eb; } .green { color: #16a34a; } .amber { color: #d97706; } .red { color: #dc2626; }
+
+        h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: .75rem; color: #334155; }
+        table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+        th { background: #f8fafc; text-align: left; padding: .6rem .75rem; color: #64748b; font-weight: 600; border-bottom: 2px solid #e2e8f0; }
+        td { padding: .6rem .75rem; border-bottom: 1px solid #f1f5f9; }
+        tr:hover td { background: #f8fafc; }
+        .badge {
+            display: inline-block; padding: .15rem .5rem; border-radius: 4px;
+            font-size: .75rem; font-weight: 600;
+        }
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-amber { background: #fef3c7; color: #92400e; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-gray { background: #f1f5f9; color: #475569; }
+
+        .section { background: #fff; border-radius: 10px; padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+        footer { text-align: center; padding: 1rem; font-size: .75rem; color: #94a3b8; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Vehicle Operations Dashboard</h1>
+        <p>Production &bull; Warranty &bull; Parts — powered by SQL Server stored procedures</p>
+    </header>
+
+    <div class="warning-banner">
+        <strong>Legacy Architecture:</strong> All business logic runs inside SQL Server stored procedures.
+        No unit tests. No documentation. See <code>sql_server_source/</code> for the 6 stored procedures
+        that drive this system.
+    </div>
+
+    <main>
+        <!-- Summary Cards -->
+        <div class="cards">
+            <div class="card">
+                <div class="card-label">Total Vehicles</div>
+                <div class="card-value blue" th:text="${productionSummary.totalVehicles}">0</div>
+                <div class="card-sub"><span th:text="${productionSummary.inProduction}">0</span> in production</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Warranty Claims</div>
+                <div class="card-value green" th:text="${warrantySummary.totalClaims}">0</div>
+                <div class="card-sub"><span th:text="${warrantySummary.approvedClaims}">0</span> approved</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Total Claim Value</div>
+                <div class="card-value amber">$<span th:text="${#numbers.formatDecimal(warrantySummary.totalAmount, 1, 2)}">0</span></div>
+                <div class="card-sub">approved claims only</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Parts Catalog</div>
+                <div class="card-value blue" th:text="${partsSummary.totalParts}">0</div>
+                <div class="card-sub"><span th:text="${partsSummary.supersededParts}">0</span> superseded</div>
+            </div>
+        </div>
+
+        <!-- Vehicle Inventory -->
+        <div class="section">
+            <h2>Vehicle Inventory</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>VIN</th>
+                        <th>Year</th>
+                        <th>Model</th>
+                        <th>Trim</th>
+                        <th>Plant</th>
+                        <th>Mileage</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="v : ${vehicles}">
+                        <td><code th:text="${v.vin}"></code></td>
+                        <td th:text="${v.modelYear}"></td>
+                        <td th:text="${v.modelName}"></td>
+                        <td th:text="${v.trimLevel}"></td>
+                        <td th:text="${v.plantCode}"></td>
+                        <td th:text="${v.currentMileage != null ? #numbers.formatInteger(v.currentMileage, 1, 'COMMA') : '-'}"></td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${v.status == 'SHIPPED' ? 'badge-green' : (v.status == 'ASSEMBLED' ? 'badge-blue' : (v.status == 'IN_PRODUCTION' ? 'badge-amber' : 'badge-gray'))}"
+                                  th:text="${v.status}"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Recent Warranty Claims -->
+        <div class="section">
+            <h2>Recent Warranty Claims</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Claim #</th>
+                        <th>Dealer</th>
+                        <th>Date</th>
+                        <th>Mileage</th>
+                        <th>Causal Part</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="c : ${recentClaims}">
+                        <td><code th:text="${c.claimNumber}"></code></td>
+                        <td th:text="${c.dealerCode}"></td>
+                        <td th:text="${#dates.format(c.claimDate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${#numbers.formatInteger(c.mileageAtClaim, 1, 'COMMA')}"></td>
+                        <td><code th:text="${c.causalPartNumber}"></code></td>
+                        <td>$<span th:text="${c.totalAmount != null ? #numbers.formatDecimal(c.totalAmount, 1, 2) : '-'}"></span></td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${c.claimStatus == 'APPROVED' ? 'badge-green' : (c.claimStatus == 'SUBMITTED' ? 'badge-amber' : 'badge-gray')}"
+                                  th:text="${c.claimStatus}"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        Vehicle Operations v1.0.0 &bull; SQL Server on-premises &bull; All business logic in stored procedures
+    </footer>
+</body>
+</html>

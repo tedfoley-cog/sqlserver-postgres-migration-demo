@@ -1,0 +1,14 @@
+# Maven build output
+spring-boot-app/target/
+
+# IDE files
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
