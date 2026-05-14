@@ -25,7 +25,7 @@ public interface ProductionTrackingJpaRepository extends JpaRepository<Productio
 
     long countByStationIdAndExitTimeIsNull(Integer stationId);
 
-    @Query(value = "SELECT AVG(TIMESTAMPDIFF(MINUTE, pt.entry_time, pt.exit_time)) " +
+    @Query(value = "SELECT AVG(EXTRACT(EPOCH FROM (pt.exit_time - pt.entry_time)) / 60) " +
            "FROM production_tracking pt " +
            "WHERE pt.station_id = ?1 AND pt.status = 'COMPLETED' AND pt.exit_time IS NOT NULL",
            nativeQuery = true)
