@@ -3,8 +3,11 @@ package com.acme.vehicleops.repository;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.LockModeType;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +25,10 @@ public interface WarrantyClaimJpaRepository extends JpaRepository<WarrantyClaim,
 
     List<WarrantyClaim> findByClaimStatusAndSettledDateIsNull(String claimStatus);
 
-    @Query("SELECT COALESCE(MAX(w.claimId), 0) FROM WarrantyClaim w")
-    int findMaxClaimId();
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT w FROM WarrantyClaim w WHERE w.claimStatus = ?1 AND w.settledDate IS NULL")
+    List<WarrantyClaim> findByClaimStatusAndSettledDateIsNullForUpdate(String claimStatus);
+
+    @Query(value = "SELECT NEXTVAL('claim_number_seq')", nativeQuery = true)
+    long getNextClaimSequenceValue();
 }

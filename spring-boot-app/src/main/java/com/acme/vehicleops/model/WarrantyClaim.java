@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "warranty_claim")
@@ -84,6 +85,10 @@ public class WarrantyClaim {
     @Column(name = "submitted_by", length = 50)
     private String submittedBy;
 
+    @Version
+    @Column(name = "version")
+    private Integer version;
+
     public WarrantyClaim() {}
 
     // Getters and setters
@@ -149,4 +154,7 @@ public class WarrantyClaim {
 
     public String getSubmittedBy() { return submittedBy; }
     public void setSubmittedBy(String submittedBy) { this.submittedBy = submittedBy; }
+
+    public Integer getVersion() { return version; }
+    public void setVersion(Integer version) { this.version = version; }
 }

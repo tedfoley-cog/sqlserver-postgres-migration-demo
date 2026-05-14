@@ -248,7 +248,7 @@ public class WarrantyService {
 
     private String generateClaimNumber() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        int nextId = claimRepository.findMaxClaimId() + 1;
+        long nextId = claimRepository.getNextClaimSequenceValue();
         return "WC-" + sdf.format(new Date()) + "-" + String.format("%04d", nextId);
     }
 

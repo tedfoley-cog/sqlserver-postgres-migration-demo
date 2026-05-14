@@ -51,7 +51,7 @@ public class DealerSettlementService {
     public Map<String, Object> runSettlementBatch() {
         String batchNumber = generateBatchNumber();
         List<WarrantyClaim> claims = claimRepository
-                .findByClaimStatusAndSettledDateIsNull("APPROVED");
+                .findByClaimStatusAndSettledDateIsNullForUpdate("APPROVED");
 
         List<DealerSettlement> settlements = new ArrayList<>();
         BigDecimal batchTotal = BigDecimal.ZERO;

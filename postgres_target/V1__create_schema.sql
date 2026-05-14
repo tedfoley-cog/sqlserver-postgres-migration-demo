@@ -54,6 +54,8 @@ CREATE TABLE production_tracking (
 
 -- ── Warranty ─────────────────────────────────────────────────────────────────
 
+CREATE SEQUENCE claim_number_seq START WITH 100;
+
 CREATE TABLE warranty_claim (
     claim_id            SERIAL PRIMARY KEY,
     claim_number        VARCHAR(20) NOT NULL UNIQUE,
@@ -76,6 +78,7 @@ CREATE TABLE warranty_claim (
     approved_date       TIMESTAMP,
     settled_date        TIMESTAMP,
     submitted_by        VARCHAR(50),
+    version             INT DEFAULT 0 NOT NULL,
     created_date        TIMESTAMP DEFAULT NOW()
 );
 
