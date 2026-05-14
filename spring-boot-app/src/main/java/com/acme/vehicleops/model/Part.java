@@ -13,43 +13,43 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "PART")
+@Table(name = "part")
 public class Part {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PARTID")
+    @Column(name = "part_id")
     private Integer partId;
 
-    @Column(name = "PARTNUMBER", length = 25, unique = true)
+    @Column(name = "part_number", length = 25, unique = true)
     private String partNumber;
 
-    @Column(name = "DESCRIPTION", length = 100)
+    @Column(name = "description", length = 100)
     private String description;
 
-    @Column(name = "PARTGROUPCODE", length = 10)
+    @Column(name = "part_group_code", length = 10)
     private String partGroupCode;
 
-    @Column(name = "UNITCOST", precision = 10, scale = 2)
+    @Column(name = "unit_cost", precision = 10, scale = 2)
     private BigDecimal unitCost;
 
-    @Column(name = "LISTPRICE", precision = 10, scale = 2)
+    @Column(name = "list_price", precision = 10, scale = 2)
     private BigDecimal listPrice;
 
-    @Column(name = "STATUS", length = 15)
+    @Column(name = "status", length = 15)
     private String status;
 
-    @Column(name = "SUPERSEDEDBYPARTNO", length = 25)
+    @Column(name = "superseded_by_part_no", length = 25)
     private String supersededByPartNo;
 
-    @Column(name = "SUPPLIERCODE", length = 20)
+    @Column(name = "supplier_code", length = 20)
     private String supplierCode;
 
-    @Column(name = "LEADTIMEDAYS")
+    @Column(name = "lead_time_days")
     private Integer leadTimeDays;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CREATEDDATE")
+    @Column(name = "created_date")
     private Date createdDate;
 
     public Part() {}

@@ -12,61 +12,61 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "VEHICLE")
+@Table(name = "vehicle")
 public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "VEHICLEID")
+    @Column(name = "vehicle_id")
     private Integer vehicleId;
 
-    @Column(name = "VIN", nullable = false, unique = true, length = 17)
+    @Column(name = "vin", nullable = false, unique = true, length = 17)
     private String vin;
 
-    @Column(name = "MODELYEAR")
+    @Column(name = "model_year")
     private Integer modelYear;
 
-    @Column(name = "MODELCODE", length = 10)
+    @Column(name = "model_code", length = 10)
     private String modelCode;
 
-    @Column(name = "MODELNAME", length = 50)
+    @Column(name = "model_name", length = 50)
     private String modelName;
 
-    @Column(name = "TRIMLEVEL", length = 20)
+    @Column(name = "trim_level", length = 20)
     private String trimLevel;
 
-    @Column(name = "ENGINECODE", length = 15)
+    @Column(name = "engine_code", length = 15)
     private String engineCode;
 
-    @Column(name = "TRANSMISSIONTYPE", length = 10)
+    @Column(name = "transmission_type", length = 10)
     private String transmissionType;
 
-    @Column(name = "PLANTCODE", length = 5)
+    @Column(name = "plant_code", length = 5)
     private String plantCode;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ASSEMBLYDATE")
+    @Column(name = "assembly_date")
     private Date assemblyDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "SHIPDATE")
+    @Column(name = "ship_date")
     private Date shipDate;
 
-    @Column(name = "DEALERCODE", length = 10)
+    @Column(name = "dealer_code", length = 10)
     private String dealerCode;
 
-    @Column(name = "CURRENTMILEAGE")
+    @Column(name = "current_mileage")
     private Integer currentMileage;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "WARRANTYSTARTDATE")
+    @Column(name = "warranty_start_date")
     private Date warrantyStartDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "WARRANTYENDDATE")
+    @Column(name = "warranty_end_date")
     private Date warrantyEndDate;
 
-    @Column(name = "STATUS", length = 20)
+    @Column(name = "status", length = 20)
     private String status;
 
     public Vehicle() {}

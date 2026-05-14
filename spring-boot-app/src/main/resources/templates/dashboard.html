@@ -54,13 +54,12 @@
 <body>
     <header>
         <h1>Vehicle Operations Dashboard</h1>
-        <p>Production &bull; Warranty &bull; Parts — powered by SQL Server stored procedures</p>
+        <p>Production &bull; Warranty &bull; Parts — powered by Spring Boot JPA services</p>
     </header>
 
-    <div class="warning-banner">
-        <strong>Legacy Architecture:</strong> All business logic runs inside SQL Server stored procedures.
-        No unit tests. No documentation. See <code>sql_server_source/</code> for the 6 stored procedures
-        that drive this system.
+    <div class="warning-banner" style="background: #dcfce7; border-bottom-color: #16a34a; color: #166534;">
+        <strong>Migrated Architecture:</strong> Business logic extracted from SQL Server stored procedures
+        into Spring Boot service classes with JPA repositories. Targeting PostgreSQL.
     </div>
 
     <main>
@@ -156,7 +155,7 @@
     </main>
 
     <footer>
-        Vehicle Operations v1.0.0 &bull; SQL Server on-premises &bull; All business logic in stored procedures
+        Vehicle Operations v1.0.0 &bull; PostgreSQL target &bull; Business logic in Spring Boot services
     </footer>
 </body>
 </html>

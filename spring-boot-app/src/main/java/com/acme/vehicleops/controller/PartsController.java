@@ -10,28 +10,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.acme.vehicleops.model.Part;
-import com.acme.vehicleops.repository.PartsRepository;
+import com.acme.vehicleops.service.PartsService;
 
 @RestController
 @RequestMapping("/api/parts")
 public class PartsController {
 
     @Autowired
-    private PartsRepository partsRepository;
+    private PartsService partsService;
 
     @GetMapping
     public List<Part> getAllParts() {
-        return partsRepository.getAllParts();
+        return partsService.getAllParts();
     }
 
     @GetMapping("/supersession")
     public List<Map<String, Object>> getSupersessionChain(
-            @RequestParam String partNumber) {
-        return partsRepository.getSupersessionChain(partNumber);
+            @RequestParam String partNumber,
+            @RequestParam(required = false) String vin) {
+        if (vin != null && !vin.isEmpty()) {
+            return partsService.getSupersessionChainForVehicle(partNumber, vin);
+        }
+        return partsService.getSupersessionChain(partNumber);
     }
 
     @GetMapping("/summary")
     public Map<String, Object> getSummary() {
-        return partsRepository.getPartsSummary();
+        return partsService.getPartsSummary();
     }
 }

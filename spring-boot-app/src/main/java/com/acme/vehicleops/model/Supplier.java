@@ -13,40 +13,40 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "SUPPLIER")
+@Table(name = "supplier")
 public class Supplier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SUPPLIERID")
+    @Column(name = "supplier_id")
     private Integer supplierId;
 
-    @Column(name = "SUPPLIERCODE", length = 20, unique = true)
+    @Column(name = "supplier_code", length = 20, unique = true)
     private String supplierCode;
 
-    @Column(name = "SUPPLIERNAME", length = 100)
+    @Column(name = "supplier_name", length = 100)
     private String supplierName;
 
-    @Column(name = "REGION", length = 10)
+    @Column(name = "region", length = 10)
     private String region;
 
-    @Column(name = "COUNTRY", length = 30)
+    @Column(name = "country", length = 30)
     private String country;
 
-    @Column(name = "QUALITYRATING", length = 5)
+    @Column(name = "quality_rating", length = 5)
     private String qualityRating;
 
-    @Column(name = "ISAPPROVED")
+    @Column(name = "is_approved")
     private Boolean isApproved;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CERTIFICATIONEXPIRY")
+    @Column(name = "certification_expiry")
     private Date certificationExpiry;
 
-    @Column(name = "ONTIMEDELIVERY_PCT", precision = 5, scale = 2)
+    @Column(name = "on_time_delivery_pct", precision = 5, scale = 2)
     private BigDecimal onTimeDeliveryPct;
 
-    @Column(name = "DEFECTPPM")
+    @Column(name = "defect_ppm")
     private Integer defectPpm;
 
     public Supplier() {}

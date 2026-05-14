@@ -11,78 +11,83 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 @Entity
-@Table(name = "WARRANTYCLAIM")
+@Table(name = "warranty_claim")
 public class WarrantyClaim {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CLAIMID")
+    @Column(name = "claim_id")
     private Integer claimId;
 
-    @Column(name = "CLAIMNUMBER", length = 20, unique = true)
+    @Column(name = "claim_number", length = 20, unique = true)
     private String claimNumber;
 
-    @Column(name = "VEHICLEID")
+    @Column(name = "vehicle_id")
     private Integer vehicleId;
 
-    @Column(name = "DEALERCODE", length = 10)
+    @Column(name = "dealer_code", length = 10)
     private String dealerCode;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CLAIMDATE")
+    @Column(name = "claim_date")
     private Date claimDate;
 
-    @Column(name = "MILEAGEATCLAIM")
+    @Column(name = "mileage_at_claim")
     private Integer mileageAtClaim;
 
-    @Column(name = "SYMPTOMCODE", length = 10)
+    @Column(name = "symptom_code", length = 10)
     private String symptomCode;
 
-    @Column(name = "CAUSALPARTNUMBER", length = 25)
+    @Column(name = "causal_part_number", length = 25)
     private String causalPartNumber;
 
-    @Column(name = "LABOROPERATIONCODE", length = 15)
+    @Column(name = "labor_operation_code", length = 15)
     private String laborOperationCode;
 
-    @Column(name = "LABORHOURS", precision = 6, scale = 2)
+    @Column(name = "labor_hours", precision = 6, scale = 2)
     private BigDecimal laborHours;
 
-    @Column(name = "LABORRATE", precision = 8, scale = 2)
+    @Column(name = "labor_rate", precision = 8, scale = 2)
     private BigDecimal laborRate;
 
-    @Column(name = "PARTSCOST", precision = 10, scale = 2)
+    @Column(name = "parts_cost", precision = 10, scale = 2)
     private BigDecimal partsCost;
 
-    @Column(name = "SUBLETCOST", precision = 10, scale = 2)
+    @Column(name = "sublet_cost", precision = 10, scale = 2)
     private BigDecimal subletCost;
 
-    @Column(name = "DEDUCTIBLE", precision = 8, scale = 2)
+    @Column(name = "deductible", precision = 8, scale = 2)
     private BigDecimal deductible;
 
-    @Column(name = "TOTALAMOUNT", precision = 10, scale = 2)
+    @Column(name = "total_amount", precision = 10, scale = 2)
     private BigDecimal totalAmount;
 
-    @Column(name = "COVERAGETYPE", length = 20)
+    @Column(name = "coverage_type", length = 20)
     private String coverageType;
 
-    @Column(name = "CLAIMSTATUS", length = 15)
+    @Column(name = "claim_status", length = 15)
     private String claimStatus;
 
-    @Column(name = "DENIALREASONCODE", length = 10)
+    @Column(name = "denial_reason_code", length = 10)
     private String denialReasonCode;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "APPROVEDDATE")
+    @Column(name = "approved_date")
     private Date approvedDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "SETTLEDDATE")
+    @Column(name = "settled_date")
     private Date settledDate;
 
-    @Column(name = "SUBMITTEDBY", length = 50)
+    @Column(name = "submitted_by", length = 50)
     private String submittedBy;
+
+    @Version
+    @Column(name = "version")
+    private Integer version;
 
     public WarrantyClaim() {}
 
@@ -149,4 +154,7 @@ public class WarrantyClaim {
 
     public String getSubmittedBy() { return submittedBy; }
     public void setSubmittedBy(String submittedBy) { this.submittedBy = submittedBy; }
+
+    public Integer getVersion() { return version; }
+    public void setVersion(Integer version) { this.version = version; }
 }
