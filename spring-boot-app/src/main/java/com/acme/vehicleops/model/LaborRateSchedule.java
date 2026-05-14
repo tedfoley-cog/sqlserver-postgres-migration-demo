@@ -13,32 +13,32 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "LABORRATESCHEDULE")
+@Table(name = "labor_rate_schedule")
 public class LaborRateSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RATEID")
+    @Column(name = "rate_id")
     private Integer rateId;
 
-    @Column(name = "REGIONCODE", length = 10, nullable = false)
+    @Column(name = "region_code", length = 10, nullable = false)
     private String regionCode;
 
-    @Column(name = "DEALERTIER", length = 5, nullable = false)
+    @Column(name = "dealer_tier", length = 5, nullable = false)
     private String dealerTier;
 
-    @Column(name = "LABORTYPE", length = 20, nullable = false)
+    @Column(name = "labor_type", length = 20, nullable = false)
     private String laborType;
 
-    @Column(name = "HOURLYRATE", precision = 8, scale = 2, nullable = false)
+    @Column(name = "hourly_rate", precision = 8, scale = 2, nullable = false)
     private BigDecimal hourlyRate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "EFFECTIVEDATE", nullable = false)
+    @Column(name = "effective_date", nullable = false)
     private Date effectiveDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "EXPIRATIONDATE")
+    @Column(name = "expiration_date")
     private Date expirationDate;
 
     public LaborRateSchedule() {}

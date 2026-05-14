@@ -12,48 +12,48 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "SUPPLIERSHIPMENT")
+@Table(name = "supplier_shipment")
 public class SupplierShipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SHIPMENTID")
+    @Column(name = "shipment_id")
     private Integer shipmentId;
 
-    @Column(name = "SUPPLIERCODE", length = 20, nullable = false)
+    @Column(name = "supplier_code", length = 20, nullable = false)
     private String supplierCode;
 
-    @Column(name = "PURCHASEORDERNO", length = 20)
+    @Column(name = "purchase_order_no", length = 20)
     private String purchaseOrderNo;
 
-    @Column(name = "PARTNUMBER", length = 25, nullable = false)
+    @Column(name = "part_number", length = 25, nullable = false)
     private String partNumber;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "SHIPDATE", nullable = false)
+    @Column(name = "ship_date", nullable = false)
     private Date shipDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "RECEIVEDDATE")
+    @Column(name = "received_date")
     private Date receivedDate;
 
-    @Column(name = "ORDEREDQTY", nullable = false)
+    @Column(name = "ordered_qty", nullable = false)
     private Integer orderedQty;
 
-    @Column(name = "RECEIVEDQTY")
+    @Column(name = "received_qty")
     private Integer receivedQty;
 
-    @Column(name = "REJECTEDQTY")
+    @Column(name = "rejected_qty")
     private Integer rejectedQty;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DUEDATE", nullable = false)
+    @Column(name = "due_date", nullable = false)
     private Date dueDate;
 
-    @Column(name = "ISONTIME")
+    @Column(name = "is_on_time")
     private Boolean isOnTime;
 
-    @Column(name = "INSPECTIONRESULT", length = 15)
+    @Column(name = "inspection_result", length = 15)
     private String inspectionResult;
 
     public SupplierShipment() {}

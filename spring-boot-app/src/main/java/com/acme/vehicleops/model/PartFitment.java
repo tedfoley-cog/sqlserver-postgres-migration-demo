@@ -8,33 +8,33 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PARTFITMENT")
+@Table(name = "part_fitment")
 public class PartFitment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FITMENTID")
+    @Column(name = "fitment_id")
     private Integer fitmentId;
 
-    @Column(name = "PARTNUMBER", length = 25, nullable = false)
+    @Column(name = "part_number", length = 25, nullable = false)
     private String partNumber;
 
-    @Column(name = "MODELCODE", length = 10, nullable = false)
+    @Column(name = "model_code", length = 10, nullable = false)
     private String modelCode;
 
-    @Column(name = "MODELYEARFROM", nullable = false)
+    @Column(name = "model_year_from", nullable = false)
     private Integer modelYearFrom;
 
-    @Column(name = "MODELYEARTO", nullable = false)
+    @Column(name = "model_year_to", nullable = false)
     private Integer modelYearTo;
 
-    @Column(name = "TRIMLEVEL", length = 20)
+    @Column(name = "trim_level", length = 20)
     private String trimLevel;
 
-    @Column(name = "ENGINECODE", length = 15)
+    @Column(name = "engine_code", length = 15)
     private String engineCode;
 
-    @Column(name = "NOTES", length = 200)
+    @Column(name = "notes", length = 200)
     private String notes;
 
     public PartFitment() {}

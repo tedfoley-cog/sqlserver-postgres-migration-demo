@@ -10,33 +10,33 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "WARRANTYCOVERAGE")
+@Table(name = "warranty_coverage")
 public class WarrantyCoverage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "COVERAGEID")
+    @Column(name = "coverage_id")
     private Integer coverageId;
 
-    @Column(name = "COVERAGETYPE", length = 20, nullable = false)
+    @Column(name = "coverage_type", length = 20, nullable = false)
     private String coverageType;
 
-    @Column(name = "MODELYEAR", nullable = false)
+    @Column(name = "model_year", nullable = false)
     private Integer modelYear;
 
-    @Column(name = "MONTHSFROMSALE", nullable = false)
+    @Column(name = "months_from_sale", nullable = false)
     private Integer monthsFromSale;
 
-    @Column(name = "MILEAGELIMIT", nullable = false)
+    @Column(name = "mileage_limit", nullable = false)
     private Integer mileageLimit;
 
-    @Column(name = "DESCRIPTION", length = 100)
+    @Column(name = "description", length = 100)
     private String description;
 
-    @Column(name = "DEDUCTIBLEAMOUNT", precision = 8, scale = 2)
+    @Column(name = "deductible_amount", precision = 8, scale = 2)
     private BigDecimal deductibleAmount;
 
-    @Column(name = "PARTGROUPCODES", length = 200)
+    @Column(name = "part_group_codes", length = 200)
     private String partGroupCodes;
 
     public WarrantyCoverage() {}

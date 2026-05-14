@@ -12,28 +12,28 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "PARTINVENTORY")
+@Table(name = "part_inventory")
 public class PartInventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "INVENTORYID")
+    @Column(name = "inventory_id")
     private Integer inventoryId;
 
-    @Column(name = "PARTNUMBER", length = 25, nullable = false)
+    @Column(name = "part_number", length = 25, nullable = false)
     private String partNumber;
 
-    @Column(name = "WAREHOUSECODE", length = 10, nullable = false)
+    @Column(name = "warehouse_code", length = 10, nullable = false)
     private String warehouseCode;
 
-    @Column(name = "ONHANDQTY")
+    @Column(name = "on_hand_qty")
     private Integer onHandQty;
 
-    @Column(name = "REORDERPOINT")
+    @Column(name = "reorder_point")
     private Integer reorderPoint;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "LASTCOUNTDATE")
+    @Column(name = "last_count_date")
     private Date lastCountDate;
 
     public PartInventory() {}

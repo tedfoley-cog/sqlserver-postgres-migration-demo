@@ -2,7 +2,7 @@
 -- All names, VINs, and identifiers are fictional
 
 -- ── Vehicles ─────────────────────────────────────────────────────────────────
-INSERT INTO VEHICLE (VIN, MODELYEAR, MODELCODE, MODELNAME, TRIMLEVEL, ENGINECODE, TRANSMISSIONTYPE, PLANTCODE, ASSEMBLYDATE, SHIPDATE, DEALERCODE, CURRENTMILEAGE, WARRANTYSTARTDATE, WARRANTYENDDATE, STATUS)
+INSERT INTO vehicle (vin, model_year, model_code, model_name, trim_level, engine_code, transmission_type, plant_code, assembly_date, ship_date, dealer_code, current_mileage, warranty_start_date, warranty_end_date, status)
 VALUES
 ('1G1YY22G965110001', 2025, 'SED-X', 'Apex Sedan', 'LX', 'E4-2.0T', 'AUTO', 'PLT-A', TIMESTAMP '2024-11-15 08:30:00', TIMESTAMP '2024-12-01 14:00:00', 'MW-IL-3', 12450, TIMESTAMP '2024-12-15 00:00:00', TIMESTAMP '2027-12-15 00:00:00', 'SHIPPED'),
 ('1G1YY22G965110002', 2025, 'SED-X', 'Apex Sedan', 'EX', 'E4-2.0T', 'AUTO', 'PLT-A', TIMESTAMP '2024-11-16 08:30:00', TIMESTAMP '2024-12-03 14:00:00', 'NE-NY-1', 8920, TIMESTAMP '2024-12-20 00:00:00', TIMESTAMP '2027-12-20 00:00:00', 'SHIPPED'),
@@ -16,7 +16,7 @@ VALUES
 ('1G1YY22G965110010', 2026, 'EV-Z', 'Volt Crossover', 'Base', 'EM-100', 'DIRECT', 'PLT-D', TIMESTAMP '2025-04-10 07:00:00', NULL, NULL, 0, NULL, NULL, 'IN_PRODUCTION');
 
 -- ── Production Stations ──────────────────────────────────────────────────────
-INSERT INTO PRODUCTIONSTATION (STATIONCODE, STATIONNAME, PLANTCODE, SEQUENCEORDER, CYCLETIMEMINUTES, ISQUALITYGATE)
+INSERT INTO production_station (station_code, station_name, plant_code, sequence_order, cycle_time_minutes, is_quality_gate)
 VALUES
 ('BIW-01', 'Body-in-White Welding', 'PLT-A', 1, 45.0, FALSE),
 ('PAINT-01', 'Paint Booth', 'PLT-A', 2, 60.0, FALSE),
@@ -32,14 +32,14 @@ VALUES
 ('QG-B-FINAL', 'Final Quality Gate', 'PLT-B', 5, 60.0, TRUE);
 
 -- ── Production Tracking (sample records) ─────────────────────────────────────
-INSERT INTO PRODUCTIONTRACKING (VEHICLEID, STATIONID, ENTRYTIME, EXITTIME, OPERATORID, STATUS, DEFECTSFOUND)
+INSERT INTO production_tracking (vehicle_id, station_id, entry_time, exit_time, operator_id, status, defects_found)
 VALUES
 (7, 1, TIMESTAMP '2025-03-15 08:30:00', TIMESTAMP '2025-03-15 09:18:00', 'OP-101', 'COMPLETED', 0),
 (7, 2, TIMESTAMP '2025-03-15 09:20:00', TIMESTAMP '2025-03-15 10:22:00', 'OP-204', 'COMPLETED', 0),
 (7, 3, TIMESTAMP '2025-03-15 10:25:00', NULL, 'OP-305', 'IN_STATION', 0);
 
 -- ── Parts ────────────────────────────────────────────────────────────────────
-INSERT INTO PART (PARTNUMBER, DESCRIPTION, PARTGROUPCODE, UNITCOST, LISTPRICE, STATUS, SUPERSEDEDBYPARTNO, SUPPLIERCODE, LEADTIMEDAYS)
+INSERT INTO part (part_number, description, part_group_code, unit_cost, list_price, status, superseded_by_part_no, supplier_code, lead_time_days)
 VALUES
 ('ENG-2000-A', '2.0T Engine Block Assembly', 'ENG', 1850.00, 3200.00, 'SUPERSEDED', 'ENG-2000-B', 'OEM-CAST-01', 14),
 ('ENG-2000-B', '2.0T Engine Block Assembly Rev B', 'ENG', 1920.00, 3350.00, 'ACTIVE', NULL, 'OEM-CAST-01', 12),
@@ -58,7 +58,7 @@ VALUES
 ('RAD-CORE-02', 'Radiator Core Assembly V2', 'CLG', 215.00, 365.00, 'ACTIVE', NULL, 'OEM-COOL-01', 8);
 
 -- ── Part Fitment ─────────────────────────────────────────────────────────────
-INSERT INTO PARTFITMENT (PARTNUMBER, MODELCODE, MODELYEARFROM, MODELYEARTO, TRIMLEVEL, ENGINECODE, NOTES)
+INSERT INTO part_fitment (part_number, model_code, model_year_from, model_year_to, trim_level, engine_code, notes)
 VALUES
 ('ENG-2000-B', 'SED-X', 2024, 2026, NULL, 'E4-2.0T', 'All 2.0T Apex Sedans'),
 ('TRN-AT6-01', 'SED-X', 2024, 2026, NULL, NULL, 'All Apex Sedan trims'),
@@ -72,7 +72,7 @@ VALUES
 ('DRV-AXLE-01', 'SUV-R', 2024, 2026, 'Sport', 'V6-3.5', 'AWD Sport trim only');
 
 -- ── Part Inventory ───────────────────────────────────────────────────────────
-INSERT INTO PARTINVENTORY (PARTNUMBER, WAREHOUSECODE, ONHANDQTY, REORDERPOINT)
+INSERT INTO part_inventory (part_number, warehouse_code, on_hand_qty, reorder_point)
 VALUES
 ('ENG-2000-B', 'WH-CENTRAL', 45, 20),
 ('ENG-2000-B', 'WH-EAST', 12, 10),
@@ -85,7 +85,7 @@ VALUES
 ('RAD-CORE-02', 'WH-CENTRAL', 40, 15);
 
 -- ── Warranty Coverage Rules ──────────────────────────────────────────────────
-INSERT INTO WARRANTYCOVERAGE (COVERAGETYPE, MODELYEAR, MONTHSFROMSALE, MILEAGELIMIT, DESCRIPTION, DEDUCTIBLEAMOUNT, PARTGROUPCODES)
+INSERT INTO warranty_coverage (coverage_type, model_year, months_from_sale, mileage_limit, description, deductible_amount, part_group_codes)
 VALUES
 ('BUMPER_TO_BUMPER', 2025, 36, 36000, 'Basic 3yr/36k comprehensive', 0, NULL),
 ('BUMPER_TO_BUMPER', 2026, 36, 36000, 'Basic 3yr/36k comprehensive', 0, NULL),
@@ -96,7 +96,7 @@ VALUES
 ('CORROSION', 2025, 60, 100000, 'Corrosion perforation 5yr/unlimited', 0, 'BDY,PNL');
 
 -- ── Labor Rate Schedule ──────────────────────────────────────────────────────
-INSERT INTO LABORRATESCHEDULE (REGIONCODE, DEALERTIER, LABORTYPE, HOURLYRATE, EFFECTIVEDATE, EXPIRATIONDATE)
+INSERT INTO labor_rate_schedule (region_code, dealer_tier, labor_type, hourly_rate, effective_date, expiration_date)
 VALUES
 ('NORTHEAST', 'A', 'MECHANICAL', 125.00, TIMESTAMP '2024-01-01 00:00:00', NULL),
 ('NORTHEAST', 'A', 'ELECTRICAL', 135.00, TIMESTAMP '2024-01-01 00:00:00', NULL),
@@ -110,7 +110,7 @@ VALUES
 ('WEST', 'B', 'MECHANICAL', 115.00, TIMESTAMP '2024-01-01 00:00:00', NULL);
 
 -- ── Suppliers ────────────────────────────────────────────────────────────────
-INSERT INTO SUPPLIER (SUPPLIERCODE, SUPPLIERNAME, REGION, COUNTRY, QUALITYRATING, ISAPPROVED, CERTIFICATIONEXPIRY, ANNUALVOLUME, ONTIMEDELIVERY_PCT, DEFECTPPM)
+INSERT INTO supplier (supplier_code, supplier_name, region, country, quality_rating, is_approved, certification_expiry, annual_volume, on_time_delivery_pct, defect_ppm)
 VALUES
 ('OEM-CAST-01', 'Precision Castings Ltd', 'MIDWEST', 'USA', 'A', TRUE, TIMESTAMP '2026-06-30 00:00:00', 50000, 96.50, 120),
 ('OEM-TRANS-01', 'DriveCore Technologies', 'NORTHEAST', 'USA', 'A+', TRUE, TIMESTAMP '2026-12-31 00:00:00', 25000, 98.20, 45),
@@ -126,7 +126,7 @@ VALUES
 ('OEM-COOL-01', 'ThermalSys Industries', 'NORTHEAST', 'USA', 'A', TRUE, TIMESTAMP '2026-11-30 00:00:00', 55000, 97.30, 75);
 
 -- ── Supplier Shipments (sample recent records) ───────────────────────────────
-INSERT INTO SUPPLIERSHIPMENT (SUPPLIERCODE, PURCHASEORDERNO, PARTNUMBER, SHIPDATE, RECEIVEDDATE, ORDEREDQTY, RECEIVEDQTY, REJECTEDQTY, DUEDATE, ISONTIME, INSPECTIONRESULT)
+INSERT INTO supplier_shipment (supplier_code, purchase_order_no, part_number, ship_date, received_date, ordered_qty, received_qty, rejected_qty, due_date, is_on_time, inspection_result)
 VALUES
 ('OEM-CAST-01', 'PO-2025-001', 'ENG-2000-B', TIMESTAMP '2025-01-10 00:00:00', TIMESTAMP '2025-01-24 00:00:00', 50, 50, 0, TIMESTAMP '2025-01-25 00:00:00', TRUE, 'PASS'),
 ('OEM-CAST-01', 'PO-2025-015', 'ENG-2000-B', TIMESTAMP '2025-02-15 00:00:00', TIMESTAMP '2025-03-02 00:00:00', 40, 40, 2, TIMESTAMP '2025-03-01 00:00:00', FALSE, 'CONDITIONAL'),
@@ -140,7 +140,7 @@ VALUES
 ('OEM-SENS-01', 'PO-2025-009', 'O2S-BNK1-01', TIMESTAMP '2025-03-05 00:00:00', TIMESTAMP '2025-03-09 00:00:00', 90, 90, 0, TIMESTAMP '2025-03-10 00:00:00', TRUE, 'PASS');
 
 -- ── Warranty Claims (sample records — processed by sp_ProcessWarrantyClaim) ──
-INSERT INTO WARRANTYCLAIM (CLAIMNUMBER, VEHICLEID, DEALERCODE, CLAIMDATE, MILEAGEATCLAIM, SYMPTOMCODE, CAUSALPARTNUMBER, LABOROPERATIONCODE, LABORHOURS, LABORRATE, PARTSCOST, SUBLETCOST, DEDUCTIBLE, TOTALAMOUNT, COVERAGETYPE, CLAIMSTATUS, APPROVEDDATE, SUBMITTEDBY)
+INSERT INTO warranty_claim (claim_number, vehicle_id, dealer_code, claim_date, mileage_at_claim, symptom_code, causal_part_number, labor_operation_code, labor_hours, labor_rate, parts_cost, sublet_cost, deductible, total_amount, coverage_type, claim_status, approved_date, submitted_by)
 VALUES
 ('WC-20250301-0001', 1, 'MW-IL-3', TIMESTAMP '2025-03-01 09:15:00', 12450, 'SYM-ENG-01', 'O2S-BNK1-01', 'LO-DIAG-01', 1.50, 85.00, 145.00, 0, 0, 272.50, 'EMISSIONS', 'APPROVED', TIMESTAMP '2025-03-01 09:15:00', 'svc_advisor_jones'),
 ('WC-20250310-0002', 3, 'SE-FL-5', TIMESTAMP '2025-03-10 14:30:00', 15230, 'SYM-BRK-01', 'BRK-FRT-02', 'LO-BRK-01', 2.00, 100.00, 92.00, 0, 0, 292.00, 'BUMPER_TO_BUMPER', 'APPROVED', TIMESTAMP '2025-03-10 14:30:00', 'svc_advisor_smith'),

@@ -10,30 +10,30 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PRODUCTIONSTATION")
+@Table(name = "production_station")
 public class ProductionStation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "STATIONID")
+    @Column(name = "station_id")
     private Integer stationId;
 
-    @Column(name = "STATIONCODE", length = 15, nullable = false)
+    @Column(name = "station_code", length = 15, nullable = false)
     private String stationCode;
 
-    @Column(name = "STATIONNAME", length = 50, nullable = false)
+    @Column(name = "station_name", length = 50, nullable = false)
     private String stationName;
 
-    @Column(name = "PLANTCODE", length = 5, nullable = false)
+    @Column(name = "plant_code", length = 5, nullable = false)
     private String plantCode;
 
-    @Column(name = "SEQUENCEORDER", nullable = false)
+    @Column(name = "sequence_order", nullable = false)
     private Integer sequenceOrder;
 
-    @Column(name = "CYCLETIMEMINUTES", precision = 8, scale = 2)
+    @Column(name = "cycle_time_minutes", precision = 8, scale = 2)
     private BigDecimal cycleTimeMinutes;
 
-    @Column(name = "ISQUALITYGATE")
+    @Column(name = "is_quality_gate")
     private Boolean isQualityGate;
 
     public ProductionStation() {}

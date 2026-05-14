@@ -13,46 +13,46 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "DEALERSETTLEMENT")
+@Table(name = "dealer_settlement")
 public class DealerSettlement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SETTLEMENTID")
+    @Column(name = "settlement_id")
     private Integer settlementId;
 
-    @Column(name = "SETTLEMENTBATCHNO", length = 20, nullable = false)
+    @Column(name = "settlement_batch_no", length = 20, nullable = false)
     private String settlementBatchNo;
 
-    @Column(name = "DEALERCODE", length = 10, nullable = false)
+    @Column(name = "dealer_code", length = 10, nullable = false)
     private String dealerCode;
 
-    @Column(name = "CLAIMID")
+    @Column(name = "claim_id")
     private Integer claimId;
 
-    @Column(name = "LABORAMOUNT", precision = 10, scale = 2)
+    @Column(name = "labor_amount", precision = 10, scale = 2)
     private BigDecimal laborAmount;
 
-    @Column(name = "PARTSAMOUNT", precision = 10, scale = 2)
+    @Column(name = "parts_amount", precision = 10, scale = 2)
     private BigDecimal partsAmount;
 
-    @Column(name = "PARTSMARKUP", precision = 10, scale = 2)
+    @Column(name = "parts_markup", precision = 10, scale = 2)
     private BigDecimal partsMarkup;
 
-    @Column(name = "SUBLETAMOUNT", precision = 10, scale = 2)
+    @Column(name = "sublet_amount", precision = 10, scale = 2)
     private BigDecimal subletAmount;
 
-    @Column(name = "DEDUCTIBLECREDIT", precision = 8, scale = 2)
+    @Column(name = "deductible_credit", precision = 8, scale = 2)
     private BigDecimal deductibleCredit;
 
-    @Column(name = "NETAMOUNT", precision = 10, scale = 2)
+    @Column(name = "net_amount", precision = 10, scale = 2)
     private BigDecimal netAmount;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "SETTLEMENTDATE")
+    @Column(name = "settlement_date")
     private Date settlementDate;
 
-    @Column(name = "PAYMENTSTATUS", length = 15)
+    @Column(name = "payment_status", length = 15)
     private String paymentStatus;
 
     public DealerSettlement() {}

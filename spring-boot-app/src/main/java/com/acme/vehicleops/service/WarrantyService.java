@@ -116,10 +116,9 @@ public class WarrantyService {
         String dealerTier = determineDealerTier(dealerCode);
         String laborType = determineLaborType(partGroupCode);
 
-        BigDecimal laborRate = laborRateRepository
-                .findCurrentRate(dealerRegion, dealerTier, laborType, new Date())
-                .map(LaborRateSchedule::getHourlyRate)
-                .orElse(DEFAULT_LABOR_RATE);
+        List<LaborRateSchedule> rates = laborRateRepository
+                .findCurrentRates(dealerRegion, dealerTier, laborType, new Date());
+        BigDecimal laborRate = rates.isEmpty() ? DEFAULT_LABOR_RATE : rates.get(0).getHourlyRate();
 
         // Step 5: Calculate costs
         BigDecimal laborCost = laborHours.multiply(laborRate);

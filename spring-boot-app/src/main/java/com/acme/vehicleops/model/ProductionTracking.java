@@ -12,38 +12,38 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "PRODUCTIONTRACKING")
+@Table(name = "production_tracking")
 public class ProductionTracking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TRACKINGID")
+    @Column(name = "tracking_id")
     private Integer trackingId;
 
-    @Column(name = "VEHICLEID", nullable = false)
+    @Column(name = "vehicle_id", nullable = false)
     private Integer vehicleId;
 
-    @Column(name = "STATIONID", nullable = false)
+    @Column(name = "station_id", nullable = false)
     private Integer stationId;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ENTRYTIME", nullable = false)
+    @Column(name = "entry_time", nullable = false)
     private Date entryTime;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "EXITTIME")
+    @Column(name = "exit_time")
     private Date exitTime;
 
-    @Column(name = "OPERATORID", length = 20)
+    @Column(name = "operator_id", length = 20)
     private String operatorId;
 
-    @Column(name = "STATUS", length = 20)
+    @Column(name = "status", length = 20)
     private String status;
 
-    @Column(name = "DEFECTSFOUND")
+    @Column(name = "defects_found")
     private Integer defectsFound;
 
-    @Column(name = "NOTES", length = 500)
+    @Column(name = "notes", length = 500)
     private String notes;
 
     public ProductionTracking() {}
