@@ -93,8 +93,9 @@ public class DealerSettlementService {
                         .setScale(2, RoundingMode.HALF_UP);
                 if (part.getListPrice() != null) {
                     BigDecimal maxMarkup = part.getListPrice().subtract(partsAmount);
-                    if (maxMarkup.compareTo(BigDecimal.ZERO) > 0
-                            && partsMarkup.compareTo(maxMarkup) > 0) {
+                    if (maxMarkup.compareTo(BigDecimal.ZERO) <= 0) {
+                        partsMarkup = BigDecimal.ZERO;
+                    } else if (partsMarkup.compareTo(maxMarkup) > 0) {
                         partsMarkup = maxMarkup;
                     }
                 }

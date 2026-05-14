@@ -1,10 +1,12 @@
 package com.acme.vehicleops.repository;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.acme.vehicleops.model.ProductionTracking;
@@ -22,4 +24,10 @@ public interface ProductionTrackingJpaRepository extends JpaRepository<Productio
             Integer stationId, String status, Date startDate);
 
     long countByStationIdAndExitTimeIsNull(Integer stationId);
+
+    @Query(value = "SELECT AVG(TIMESTAMPDIFF(MINUTE, pt.entry_time, pt.exit_time)) " +
+           "FROM production_tracking pt " +
+           "WHERE pt.station_id = ?1 AND pt.status = 'COMPLETED' AND pt.exit_time IS NOT NULL",
+           nativeQuery = true)
+    Double avgCycleTimeMinutesByStation(Integer stationId);
 }

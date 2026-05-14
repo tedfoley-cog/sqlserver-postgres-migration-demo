@@ -72,17 +72,26 @@ public class ProductionService {
             long currentLoad = trackingRepository
                     .countByStationIdAndExitTimeIsNull(station.getStationId());
             m.put("vehiclesInStation", currentLoad);
-            m.put("bottleneckFlag", determineBottleneckFlag(currentLoad,
+
+            Double avgCycleTime = trackingRepository
+                    .avgCycleTimeMinutesByStation(station.getStationId());
+            BigDecimal avgCycle = avgCycleTime != null
+                    ? BigDecimal.valueOf(avgCycleTime) : BigDecimal.ZERO;
+            m.put("avgCycleTime", avgCycle);
+            m.put("bottleneckFlag", determineBottleneckFlag(avgCycle,
                     station.getCycleTimeMinutes()));
             metrics.add(m);
         }
         return metrics;
     }
 
-    static String determineBottleneckFlag(long currentLoad, BigDecimal stdCycleTime) {
+    static String determineBottleneckFlag(BigDecimal avgActualCycleTime, BigDecimal stdCycleTime) {
         if (stdCycleTime == null || stdCycleTime.compareTo(BigDecimal.ZERO) == 0) return "GREEN";
-        if (currentLoad > 3) return "RED";
-        if (currentLoad > 1) return "YELLOW";
+        if (avgActualCycleTime == null || avgActualCycleTime.compareTo(BigDecimal.ZERO) == 0) return "GREEN";
+        BigDecimal variance = avgActualCycleTime.subtract(stdCycleTime)
+                .divide(stdCycleTime, 4, RoundingMode.HALF_UP);
+        if (variance.compareTo(new BigDecimal("0.25")) > 0) return "RED";
+        if (variance.compareTo(new BigDecimal("0.10")) > 0) return "YELLOW";
         return "GREEN";
     }
 
